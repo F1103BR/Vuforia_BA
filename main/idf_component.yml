@@ -1,0 +1,3 @@
+# idf_component.yml ohne dependencies
+target: esp32
+version: "1.0.0"

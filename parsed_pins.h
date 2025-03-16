@@ -1,0 +1,29 @@
+// Automatically generated file. Do not modify.
+#ifndef PARSED_PINS_H
+#define PARSED_PINS_H
+
+#define CONFIG_I_SENSE_U_ADC 6
+#define CONFIG_I_SENSE_V_ADC 3
+#define CONFIG_I_SENSE_W_ADC 0
+
+#define CONFIG_HIN_U_GPIO 26
+#define CONFIG_HIN_V_GPIO 14
+#define CONFIG_HIN_W_GPIO 13
+
+#define CONFIG_LIN_U_GPIO 25
+#define CONFIG_LIN_V_GPIO 27
+#define CONFIG_LIN_W_GPIO 12
+
+#define CONFIG_HALL_A_GPIO 4
+#define CONFIG_HALL_B_GPIO 16
+#define CONFIG_HALL_C_GPIO 17
+
+#define CONFIG_IN_ENC_A_GPIO 23
+#define CONFIG_IN_ENC_B_GPIO 1
+#define CONFIG_IN_ENC_BUT_GPIO 3
+
+#define CONFIG_EXT_ENC_INDX_GPIO 16
+#define CONFIG_EXT_ENC_LEFT_GPIO 18
+#define CONFIG_EXT_ENC_RIGHT_GPIO 5
+
+#endif

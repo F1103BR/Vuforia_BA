@@ -1,0 +1,147 @@
+menu "DIY Power PCB Configuration"
+    choice Version
+		prompt "Hardware Version"
+		default V2
+		help
+			Choose Version of the used PCB
+		config V2
+			bool "V2"
+			help
+				second Rev. of the DIY Power PCB
+		config V1
+			bool "V1"
+			help
+				first rev. of the DIY power PCB
+	endchoice
+
+    orsource "$IDF_PATH/examples/common_components/env_caps/$IDF_TARGET/Kconfig.env_caps"
+    menu "ADC 1 configurations"
+
+    config U_SENSE_ADC
+        int "Voltage sensing ADC1 number"
+        default 5
+        help
+            ADC1 number of the Input-Voltage-Sensing pin
+    config I_SENSE_ADC
+        int "Current sensing ADC1 number"
+        default 7
+        help
+            ADC1 number of the Current-Sensing pin at the Shunt
+    config I_SENSE_U_V_W_ADC
+        string "Current sensing ADC1 numbers of U, V, W"
+        default "6, 3, 0"
+        help
+            ADC1 numbers of the current sensing pins at U,V and W. Write seperated by a comma. example:"34, 29, 36"
+    config TORQUE_ADC
+        int "Torque sensing ADC1 number"
+        default 4
+        help
+            GPIO numbers of the torque sensing pin"
+    endmenu
+    menu "Highside pin configurations (HIN)"
+    config  HIN_U_V_W_GPIO
+        string  "Highside GPIO pins (HIN U, V, W)"
+        default "26, 14, 13"
+        help
+            GPIO numbers of the Highside controling pins, seperate by comma!
+    endmenu
+    menu "Lowside pin configurations (LIN)"
+    config  LIN_U_V_W_GPIO
+        string  "Lowside GPIO pins (LIN U, V, W)"
+        default "25, 27, 12"
+        help
+            GPIO numbers of the Lowside controling pins, seperate by comma!
+    endmenu
+    menu "PWM configuration"
+        config ENABLE_PWM
+            bool "Enable PWM"
+            default y
+            help
+                Enable PWM
+        if ENABLE_PWM
+        config TIMER_BASE_FREQ
+            int "Timers Base frequency"
+            range 1000000 40000000
+            default 40000000
+            help
+                The Base Freqeuncy of the used Timer 
+        config FREQ_PWM
+            int "frequency"
+            range 20000 80000
+            default 20000
+            help
+                The base Frequency of the PWM in Hz min: 20KHz max: 60KHz
+        config DUTY_PWM
+            int "duty cycle"
+            range 0 100
+            default 50
+            help
+                The inital duty-cycle in percent
+        endif
+        config DEAD_TIME_PWM
+            int "time (ns)"
+            range 0 10000
+            default 0
+            help 
+                Deadtime
+    endmenu
+    menu "Hall Sensor pin configurations"
+    config  HALL_A_B_C_GPIO
+        string  "Hallsensor GPIO pins (A, B, C)"
+        default "4, 16, 17"
+        help
+            GPIO numbers of the pins connected to the Hallsensors, seperate by comma!
+    endmenu
+    menu "Input pin configurations"
+    config IN_ENCODER_GPIO
+        string "Turning encoder (on board) GPIO pins: A, B, Button"
+        help
+            GPIO numbers of the pins connected to A, B, and the button of the encoder.
+            Automatically set based on the chosen hardware version.
+    config IN_ENCODER_GPIO_V1
+        string
+        default "3, 2, 23"
+        depends on V1
+        
+    config IN_ENCODER_GPIO_V2
+        string
+        default "23, 1, 3"
+        depends on V2
+        
+    config IN_ENCODER_GPIO
+        string
+        default IN_ENCODER_GPIO_V1 if V1
+        default IN_ENCODER_GPIO_V2 if V2
+
+    config IN_ENCODER_DEBOUNCE_TIME
+        int "Debounce Time in ms"
+        default "50"
+        help
+            debouncing time between Encoder turns
+    if V1
+    config BUTTON_GPIO
+        int "button GPIO pin"
+        default 1
+        help
+            GPIO number of the pin connected to the button on the pcb
+    endif
+    if V2
+    config ESP_LED
+        int "ESP LED GPIO pin"
+        default 2
+        help
+            GPIO number of the pin conneted to the LED on the ESP module
+    endif
+    config EXT_ENCODER_GPIO
+        string "encoder(at motor) GPIO pins: Indx, Left, Right"
+        default "16, 18, 5"
+        help
+            GPIO numbers of the pins connected to the Logic connected to the encoder at the motor
+    config RFE_GPIO
+        int "RFE GPIO pin"
+        default 15
+        help
+            GPIO number of the pin connected to the RFE pin of the Bridge
+    endmenu
+    
+endmenu
