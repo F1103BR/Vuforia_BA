@@ -360,6 +360,22 @@ max_cursor_pos = 1;
 
    
 }
+MenuData get_all_menu_data(void) {
+    MenuData data;
+
+    getset_bridge_state();  // Aktuellen Zustand aktualisieren
+
+    // Strings absichern kopieren
+    snprintf(data.bridge_state, sizeof(data.bridge_state), "%s", state_names[current_bridge_state]);
+    snprintf(data.mode, sizeof(data.mode), "%s", mode_names[current_mode]);
+
+    data.started = ShouldState;
+    data.pwm_freq = get_frequency();
+    data.duty = get_duty();
+    data.output_combination = current_out_combi;
+
+    return data;
+}
 
 MenuState last_menu = MAIN_MENU; // Initialisiere mit dem Startmenü
 OutCombis last_out_combi = OUT_U_V;

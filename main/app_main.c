@@ -23,6 +23,7 @@ This is the first try of a Test-Software for the DIY Power PCB by Fabian Zaske
 
 void app_main(void)
 {
+    ESP_LOGI("test", "Starte DIY Power PCB Software");
    
    
    /* uint32_t Torque = 0;
@@ -56,7 +57,7 @@ void app_main(void)
     mqtt_init();
     int Speed_AB = get_speed_AB();
     xTaskCreate(mqtt_task, "mqtt_task", 4096, NULL, 5, NULL);
-    //gpio_set_level(CONFIG_HIN_V_GPIO, 1);
+    gpio_set_level(CONFIG_HIN_V_GPIO, 1);
     while (1) {
         menu_loop();
         

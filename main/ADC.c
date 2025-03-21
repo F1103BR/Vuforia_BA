@@ -72,7 +72,7 @@ static uint32_t read_voltage(int channel) {
 uint32_t get_voltage_in()
 {
     uint32_t adc_voltage = read_voltage(CONFIG_U_SENSE_ADC);
-    ESP_LOGI("ADC", "ADC%d:voltage:%ld", CONFIG_U_SENSE_ADC, adc_voltage);
+    //ESP_LOGI("ADC", "ADC%d:voltage:%ld", CONFIG_U_SENSE_ADC, adc_voltage);
     uint32_t voltage_in = adc_voltage / 0.0909;
     return voltage_in;
 }
@@ -81,7 +81,7 @@ int32_t get_current_ASC712(int ADC_pin)
 {
     int32_t adc_voltage = read_voltage(ADC_pin);
     int32_t current = (adc_voltage +184)/(10.0/12)-2500;
-    ESP_LOGI("ADC", "ADC%d:voltage:%ldcurrent%ld", ADC_pin, adc_voltage, current);
+    //ESP_LOGI("ADC", "ADC%d:voltage:%ldcurrent%ld", ADC_pin, adc_voltage, current);
     return current;
 }
 
@@ -94,7 +94,7 @@ uint32_t get_torque()
 }
 int32_t get_current_bridge(int ADC_pin){
     int32_t adc_voltage = read_voltage(ADC_pin);
-     ESP_LOGI("CurrentBridge", "ADC:%ld",adc_voltage);
+    // ESP_LOGI("CurrentBridge", "ADC:%ld",adc_voltage);
     int32_t current = ((adc_voltage- 142)/6.77)/0.007;
     return current;
 }

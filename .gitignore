@@ -1,3 +1,6 @@
+#ausschließen passörter
+secrets.h
+
 
 # Ausschließen von temporären Dateien
 *.tmp

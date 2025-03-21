@@ -30,19 +30,15 @@ static volatile uint8_t last_state = 0;
 void configure_GPIO_dir()
 {
     /* reset every used GPIO-pin */  
-   uart_driver_delete(UART_NUM_0);
-    // GPIO1 als GPIO konfigurieren (anstatt als UART0 TX)
-    PIN_FUNC_SELECT(IO_MUX_GPIO1_REG, PIN_FUNC_GPIO);
-    
-    // GPIO3 als GPIO konfigurieren (anstatt als UART0 RX)
-    PIN_FUNC_SELECT(IO_MUX_GPIO3_REG, PIN_FUNC_GPIO);
 
     gpio_reset_pin(CONFIG_HALL_A_GPIO);
     gpio_reset_pin(CONFIG_HALL_B_GPIO);
     gpio_reset_pin(CONFIG_HALL_C_GPIO);
+// raus für monitor
+   // gpio_reset_pin(CONFIG_IN_ENC_A_GPIO); 
+   // gpio_reset_pin(CONFIG_IN_ENC_B_GPIO);
 
-    gpio_reset_pin(CONFIG_IN_ENC_A_GPIO); 
-    gpio_reset_pin(CONFIG_IN_ENC_B_GPIO);
+    //
     gpio_reset_pin(CONFIG_IN_ENC_BUT_GPIO);
 
    
@@ -65,10 +61,10 @@ void configure_GPIO_dir()
     gpio_set_direction(CONFIG_HALL_B_GPIO, GPIO_MODE_INPUT);
     gpio_set_direction(CONFIG_HALL_C_GPIO, GPIO_MODE_INPUT);
 
-    gpio_set_direction(CONFIG_IN_ENC_A_GPIO, GPIO_MODE_INPUT);
-    gpio_set_direction(CONFIG_IN_ENC_B_GPIO, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(CONFIG_IN_ENC_A_GPIO, GPIO_PULLUP_ENABLE);
-    gpio_set_pull_mode(CONFIG_IN_ENC_B_GPIO, GPIO_PULLUP_ENABLE);
+    // raus für monitor 
+   // gpio_set_direction(CONFIG_IN_ENC_A_GPIO, GPIO_MODE_INPUT);
+   // gpio_set_direction(CONFIG_IN_ENC_B_GPIO, GPIO_MODE_INPUT);
+    //
     gpio_set_direction(CONFIG_IN_ENC_BUT_GPIO, GPIO_MODE_INPUT);
     
     
@@ -77,9 +73,9 @@ void configure_GPIO_dir()
   
 
     ESP_LOGI("GPIO", "configured for DIY power PCB");
-
+// UART configuration
     gpio_config_t io_conf = {};
-    io_conf.pin_bit_mask = (1ULL << CONFIG_EXT_ENC_INDX_GPIO)| (1ULL << CONFIG_HALL_A_GPIO)| (1ULL << CONFIG_IN_ENC_A_GPIO)| (1ULL << CONFIG_IN_ENC_B_GPIO);
+    io_conf.pin_bit_mask = (1ULL << CONFIG_EXT_ENC_INDX_GPIO)| (1ULL << CONFIG_HALL_A_GPIO);//| (1ULL << CONFIG_IN_ENC_A_GPIO)| (1ULL << CONFIG_IN_ENC_B_GPIO);
     io_conf.mode = GPIO_MODE_INPUT;
     io_conf.pull_up_en = GPIO_PULLUP_ENABLE;
     io_conf.intr_type = GPIO_INTR_ANYEDGE;  // Interrupt auf beiden Flanken
